@@ -2,7 +2,6 @@
   "name": "learn-react",
   "version": "1.0.0",
   "description": "React",
-  "main": "App.js",
   "scripts": {
     "test": "gest"
   },
@@ -17,6 +16,15 @@
   },
   "homepage": "https://github.com/hariom-saw/Learn-React#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.12.5"
-  }
+    "parcel": "^2.11.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browerslist": [
+    "last 5 versions",
+    "last 5 versions"
+  ]
 }
