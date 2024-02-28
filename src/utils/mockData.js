@@ -1,32 +1,4 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import image1 from "./swiggy-hd-logo.png";
-import cardImage from "./cardImage.jpg"
-
-const Header = () => {
-    return (
-        <div className="app-hearder">
-            <div className="site-logo">
-                <img className="logo" src={image1} />
-            </div>
-            <div className="app-nav">
-                <ul className="nav-items">
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Contact Us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-        </div>
-    );
-}
-// To add inline style in JSX.
-const styleCard = {
-    backgroundColor: "#eee",
-};
-
-
-const resList = [
+export const resList = [
     {
         type: "restaurant",
         data: {
@@ -1790,49 +1762,3 @@ const resList = [
         subtype: "basic",
     }
 ];
-
-
-const RestaurantCard = (props) => {
-    const { resData } = props; // Destructuring in javascript object.
-
-console.log(resData.data);
-const {name,cloudinaryImageId,avgRating,cuisines,costForTwo,deliveryTime} = resData?.data;
-
-    return (
-        <div className="res-card" style={styleCard}>
-            <img className="card-logo" src={cardImage} />
-            <div className="res-meta">
-                <h3>{name}</h3>
-                <h4>{cuisines}</h4>
-                <h4>{avgRating}</h4>
-                <h4>{deliveryTime}</h4>
-                <h4>{costForTwo}</h4>
-            </div>
-        </div>
-    );
-}
-
-const Body = () => {
-    return (
-        <div className="app-body">
-            <div className="app-search"><input type="search"></input></div>
-            <div className="res-container">
-                {
-                    resList.map((restaurant) => (<RestaurantCard key={restaurant.data.id} resData={restaurant} />))
-                }
-            </div>
-        </div>
-    );
-};
-const AppLayout = () => {
-    return (
-        <div className="app">
-            <Header />
-            <Body />
-        </div>
-    );
-}
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<AppLayout />);
