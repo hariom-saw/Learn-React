@@ -2,12 +2,13 @@ import RestaurantCard from "./RestaurantCard";
 // import { resList } from "../utils/mockData"
 import { useEffect, useState } from "react";
 import { LIVE_DATA_URL } from "../utils/constant";
-import Shimer from "./Shimer";
+import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
 
-    const [listOfResturants, setListOfResturants] = useState([]);
-    const [filterResturants,setFilterResturants] = useState([]);
+    const [listOfResturants, setListOfResturants] = useState(null);
+    const [filterResturants, setFilterResturants] = useState([]);
     const [searchText, setsearchText] = useState("");
 
 
@@ -25,10 +26,7 @@ const Body = () => {
         console.log("Fetch called");
     };
 
-    if (0 === listOfResturants.length) {
-        return (<Shimer />);
-    }
-    return (
+    return (null == listOfResturants) ? (<Shimmer />) : (
         <div className="app-body">
             <div className="app-search">
                 <div>
@@ -47,7 +45,7 @@ const Body = () => {
             </div>
             <div className="res-container">
                 {
-                    filterResturants.map((restaurant) => (<RestaurantCard key={restaurant?.info?.id} resData={restaurant} />))
+                    filterResturants.map((restaurant) => (<Link to={"/restaurant/" + restaurant?.info?.id} key={restaurant?.info?.id}> <RestaurantCard resData={restaurant} /> </Link>))
                 }
             </div>
         </div >
