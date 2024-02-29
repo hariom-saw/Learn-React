@@ -6,14 +6,14 @@ const styleCard = {
 };
 
 const RestaurantCard = (props) => {
-    // console.log(props);
     const { resData } = props; // Destructuring in javascript object.
+    // console.log(resData?.info);
 
 // console.log(resData.data);
-const {name,cloudinaryImageId,avgRating,cuisines,costForTwo,deliveryTime} = resData?.data;
+const {name,avgRating,cuisines,costForTwo,deliveryTime} = resData?.info;
 
     return (
-        <div className="res-card" style={styleCard}>
+        <div className="res-card">
             <img className="card-logo" src={cardImage} />
             <div className="res-meta">
                 <h3>{name}</h3>

@@ -1,3 +1,8 @@
+div#root {
+    max-width: 1140px;
+    margin: auto;
+}
+
 #heading{
     color: red;
 }
@@ -21,14 +26,18 @@ ul.nav-items li{
     margin: 10px;
     cursor: pointer;
 }
-.res-container {
+.res-container, .shimer-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-.res-card{
+.res-card, .shimer-cards{
     width: 250px;
     margin: 10px;
+    background-color: rgb(238, 238, 238);
+}
+.shimer-cards{
+    height: 390px;
 }
 .res-card:hover{
     box-shadow: 5px 5px;

@@ -1,77 +1,53 @@
 import RestaurantCard from "./RestaurantCard";
-import { resList } from "../utils/mockData"
-import { useState } from "react";
+// import { resList } from "../utils/mockData"
+import { useEffect, useState } from "react";
+import { LIVE_DATA_URL } from "../utils/constant";
+import Shimer from "./Shimer";
 
 const Body = () => {
 
-    const [listOfResturants, setListOfResturants] = useState(resList);
+    const [listOfResturants, setListOfResturants] = useState([]);
+    const [filterResturants,setFilterResturants] = useState([]);
+    const [searchText, setsearchText] = useState("");
 
-    let listOfResturants2 = [
-        {
-            data: {
-                id: "334475",
-                name: "KFC",
-                cloudinaryImageId: "bdcd233971b7c81bf77e1fa4471280eb",
-                cuisines: ["Burgers", "Biryani", "American", "Snacks", "Fast Food"],
-                costForTwo: 40000,
-                costForTwoString: "₹400 FOR TWO",
-                deliveryTime: 36,
-                avgRating: "3.8",
-                totalRatings: 500,
-            }
-        }, {
-            data: {
-                id: "334476",
-                name: "Dominos",
-                cloudinaryImageId: "bdcd233971b7c81bf77e1fa4471280eb",
-                cuisines: ["Burgers", "Biryani", "American", "Snacks", "Fast Food"],
-                costForTwo: 40000,
-                costForTwoString: "₹400 FOR TWO",
-                deliveryTime: 36,
-                avgRating: "4",
-                totalRatings: 500,
-            },
-        }, {
-            data: {
-                id: "334477",
-                name: "PizzaHut",
-                cloudinaryImageId: "bdcd233971b7c81bf77e1fa4471280eb",
-                cuisines: ["Burgers", "Biryani", "American", "Snacks", "Fast Food"],
-                costForTwo: 40000,
-                costForTwoString: "₹400 FOR TWO",
-                deliveryTime: 36,
-                avgRating: "4.5",
-                totalRatings: 500,
-            }
-        },
-        {
-            data: {
-                id: "334478",
-                name: "Surbi",
-                cloudinaryImageId: "bdcd233971b7c81bf77e1fa4471280eb",
-                cuisines: ["Burgers", "Biryani", "American", "Snacks", "Fast Food"],
-                costForTwo: 40000,
-                costForTwoString: "₹400 FOR TWO",
-                deliveryTime: 36,
-                avgRating: "3.8",
-                totalRatings: 500,
-            }
-        },
 
-    ];
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        const liveData = await fetch(LIVE_DATA_URL);
+        const jsonData = await liveData.json();
+        const liveRestaurantsList = jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+        setListOfResturants(liveRestaurantsList);
+        setFilterResturants(liveRestaurantsList);
+        console.log("Fetch called");
+    };
+
+    if (0 === listOfResturants.length) {
+        return (<Shimer />);
+    }
     return (
         <div className="app-body">
-            <div className="app-search"><button className="filter-btn" onClick={() => {
-                console.log("filter");
-                const filterList = listOfResturants.filter((res) => res.data.avgRating > 4);
-                console.log(listOfResturants);
-                setListOfResturants(filterList);
-            }
-
-            }>Filter</button></div>
+            <div className="app-search">
+                <div>
+                    <input type="text" className="gsearch" id="gsearch" value={searchText} onChange={(e) => {
+                        setsearchText(e.target.value);
+                    }} />
+                    <button className="gsearch-btn" onClick={() => {
+                        const searchFilter = listOfResturants.filter((res) => res?.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                        setFilterResturants(searchFilter);
+                    }}>Search</button>
+                </div>
+                <button className="filter-btn" onClick={() => {
+                    const filterList = listOfResturants.filter((res) => res?.info?.avgRating > 4);
+                    setFilterResturants(filterList);
+                }}>Top rated restaurant</button>
+            </div>
             <div className="res-container">
                 {
-                    listOfResturants.map((restaurant) => (<RestaurantCard key={restaurant.data.id} resData={restaurant} />))
+                    filterResturants.map((restaurant) => (<RestaurantCard key={restaurant?.info?.id} resData={restaurant} />))
                 }
             </div>
         </div >
