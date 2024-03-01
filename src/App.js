@@ -5,6 +5,7 @@ import Body from "./components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Error from "./components/Error";
 import RestaurantCardMenu from "./components/RestaurantCardMenu";
+import Footer from "./components/Footer";
 
 
 
@@ -23,6 +24,7 @@ const AppLayout = () => {
         <div className="app">
             <Header />
             <Outlet />
+            <Footer />
         </div>
     );
 }
