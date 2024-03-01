@@ -1,14 +1,22 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-import About from "./components/About";
 import Error from "./components/Error";
-import Contact from "./components/Contact";
 import RestaurantCardMenu from "./components/RestaurantCardMenu";
 
 
+
+// Chunking
+// Code Splitting
+// Dynamic Buidling
+// Lazy loading
+// On demand loading
+// dynamic import.
+
+const About = lazy(() => import("./components/About"));
+const Contact = lazy(() => import("./components/Contact"));
 
 const AppLayout = () => {
     return (
@@ -18,7 +26,7 @@ const AppLayout = () => {
         </div>
     );
 }
-
+// To config app router.
 const appRouter = createBrowserRouter(
     [{
         path: "/",
@@ -29,14 +37,14 @@ const appRouter = createBrowserRouter(
                 element: <Body />
             }, {
                 path: "/about",
-                element: <About />
+                element: <Suspense fallback={<h2>Loading...</h2>} ><About /></Suspense>
             },
             {
                 path: "/contact",
-                element: <Contact />
+                element: <Suspense fallback={<h2>Loading...</h2>} ><Contact /></Suspense>
             },
             {
-                path: "/restaurant/:resId",
+                path: "/restaurant/:resId", // Dynamic app routes
                 element: <RestaurantCardMenu />
             }
         ],

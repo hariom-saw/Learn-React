@@ -1,16 +1,16 @@
 import RestaurantCard from "./RestaurantCard";
-// import { resList } from "../utils/mockData"
 import { useEffect, useState } from "react";
 import { LIVE_DATA_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
 
     const [listOfResturants, setListOfResturants] = useState(null);
     const [filterResturants, setFilterResturants] = useState([]);
     const [searchText, setsearchText] = useState("");
-
+    const onlineStatus = useOnlineStatus();
 
     useEffect(() => {
         fetchData();
@@ -23,8 +23,9 @@ const Body = () => {
 
         setListOfResturants(liveRestaurantsList);
         setFilterResturants(liveRestaurantsList);
-        console.log("Fetch called");
     };
+
+    if (false == onlineStatus) return <h2>You are offline, Please check aur internet Connection</h2>;
 
     return (null == listOfResturants) ? (<Shimmer />) : (
         <div className="app-body">
