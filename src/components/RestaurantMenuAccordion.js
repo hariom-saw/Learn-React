@@ -1,11 +1,13 @@
 import RestaurantMenuAccordionItems from "./RestaurantMenuAccordionItems";
 
-const RestaurantMenuAccordion = ({ data, showIndex, setShowIndex }) => {
+const RestaurantMenuAccordion = ({ data, showIndex, onToggle }) => {
 
     const rotateIcon = showIndex ? "rotate-0" : "rotate-180";
+
     const handleClick = () => {
-        setShowIndex(); // Lifting state up.
+        onToggle(); // Lifting state up.
     }
+
     return (
         <>
             <h2 className="bg-gray-200 mt-3">
@@ -16,7 +18,7 @@ const RestaurantMenuAccordion = ({ data, showIndex, setShowIndex }) => {
                     </svg>
                 </button>
             </h2>
-            <div className="">
+            <div>
                 {showIndex && < RestaurantMenuAccordionItems itemCards={data?.itemCards} />}
             </div>
         </>
