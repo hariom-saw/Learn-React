@@ -1,11 +1,10 @@
-import { useState } from "react";
 import RestaurantMenuAccordionItems from "./RestaurantMenuAccordionItems";
 
-const RestaurantMenuAccordion = ({ data }) => {
-    const [showIndex, setShowIndex] = useState(false);
+const RestaurantMenuAccordion = ({ data, showIndex, setShowIndex }) => {
+
     const rotateIcon = showIndex ? "rotate-0" : "rotate-180";
     const handleClick = () => {
-        setShowIndex(!showIndex);
+        setShowIndex(); // Lifting state up.
     }
     return (
         <>
