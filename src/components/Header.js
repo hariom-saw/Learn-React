@@ -11,7 +11,7 @@ export const Header = () => {
     // id dependency array is [loginBtn] => called everytime "loginBtn" is updated
 
     useEffect(() => {
-        console.log("Header useEffect is called when 'loginBtn' is updated ");
+        // console.log("Header useEffect is called when 'loginBtn' is updated ");
     }, [loginBtn]);
 
     return (

@@ -2,15 +2,15 @@ const Shimmer = () => {
     return (
         <div className="app-body container m-auto px-2 md:px-12 lg:px-7">
 
-            <div className="flex justify-between p-3 shadow-orange-100">
+            <div className="flex justify-between px-4 py-2 shadow-orange-100">
                 <div className="tags">
-                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 p-3 text-sm"></button>
-                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 p-3 text-sm"></button>
-                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 p-3 text-sm"></button>
+                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 px-4 py-2 text-sm"></button>
+                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 px-4 py-2 text-sm"></button>
+                    <button className="mr-3 w-7 text-gray-700 rounded-full border border-gray-200 px-4 py-2 text-sm"></button>
                 </div>
                 <div className="flex">
                     <input type="text" className="mr-3 max-w-full bg-white rounded border border-gray-300 focus:border-indigo-200 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" id="gsearch" />
-                    <button className="mr-3 w-7 text-gray-700 rounded-full border-2 border-gray-200 p-3 text-sm"></button>
+                    <button className="mr-3 w-7 text-gray-700 rounded-full border-2 border-gray-200 px-4 py-2 text-sm"></button>
                 </div>
             </div>
             <hr />
