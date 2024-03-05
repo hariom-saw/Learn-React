@@ -7,7 +7,7 @@ const RestaurantMenuAccordion = ({ data, showIndex, onToggle }) => {
     const handleClick = () => {
         onToggle(); // Lifting state up.
     }
-
+// Control and uncontrolled components in react js
     return (
         <>
             <h2 className="bg-gray-200 mt-3">

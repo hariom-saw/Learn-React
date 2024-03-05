@@ -1,16 +1,19 @@
 import RestaurantCard, { withTopRatedLabel } from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LIVE_DATA_URL } from "../utils/constant";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
 
     const [listOfResturants, setListOfResturants] = useState(null);
     const [filterResturants, setFilterResturants] = useState([]);
     const [searchText, setsearchText] = useState("");
+
     const onlineStatus = useOnlineStatus();
+
     const ResturantCardTopRated = withTopRatedLabel(RestaurantCard);
 
     useEffect(() => {
@@ -30,7 +33,9 @@ const Body = () => {
 
     return (null == listOfResturants) ? (<Shimmer />) : (
         <div className="app-body container m-auto py-2 md:px-12 lg:px-7">
+            <div className="conTextExample">
 
+            </div>
             <div className="flex justify-between px-4 py-2 shadow-orange-100">
                 <div className="tags">
                     <button className="mr-3 text-gray-700 rounded-full border-2 border-blue-500 px-4 py-2 text-sm" onClick={() => {

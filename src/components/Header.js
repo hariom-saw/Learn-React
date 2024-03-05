@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { LOGO_URL } from "../utils/constant";
 import { Link } from 'react-router-dom';
+import UserContext from '../utils/UserContext';
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 export const Header = () => {
 
     const [loginBtn, setLoginBtn] = useState("Login");
+    const { loggedInUser } = useContext(UserContext);
+    const onlineStatus = useOnlineStatus();
+
 
     // if No dependency array => useEffect is called on every render.
     // if dependency array is empty = [] => useEffect is called on intial render(just once)
@@ -55,15 +61,20 @@ export const Header = () => {
                                         <span>Contact Us</span>
                                     </Link>
                                 </li>
+                                <li>
+                                    User:- {<span className='font-bold'>{loggedInUser}</span>}
+                                </li>
+                                <li className='block md:px-4 transition dark:text-gray-300 dark:hover:text-yellow-300 hover:text-yellow-700'>
+                                    {onlineStatus ? "Live" : "OffLine"}
+                                </li>
                             </ul>
                         </div>
 
-                        <div className="w-full min-w-max space-y-2 border-yellow-200 lg:space-y-0 sm:w-max lg:border-l dark:lg:border-gray-700">
-                            <button type="button" title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 dark:active:bg-gray-700 dark:focus:bg-gray-800 focus:bg-yellow-100 sm:w-max">
-                                <span className="block text-yellow-800 dark:text-white font-semibold text-sm">
-                                    Sign up
-                                </span>
-                            </button>
+                        <div className="w-full flex min-w-max space-y-2 border-yellow-200 lg:space-y-0 sm:w-max lg:border-l dark:lg:border-gray-700">
+
+                            <Link to="/profile" className="w-full py-3 px-6 text-center rounded-full transition active:bg-yellow-200 dark:active:bg-gray-700 dark:focus:bg-gray-800 focus:bg-yellow-100 sm:w-max">
+                                <svg className="flex-shrink-0 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                            </Link>
                             <button type="button" title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max" onClick={() => {
                                 ('Login' == loginBtn) ? setLoginBtn("Logout") : setLoginBtn("Login");
                             }}>
