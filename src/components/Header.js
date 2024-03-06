@@ -65,7 +65,7 @@ export const Header = () => {
                                     User:- {<span className='font-bold'>{loggedInUser}</span>}
                                 </li>
                                 <li className='block md:px-4 transition dark:text-gray-300 dark:hover:text-yellow-300 hover:text-yellow-700'>
-                                    {onlineStatus ? "Live" : "OffLine"}
+                                    {onlineStatus ? "🟢" : "🔴"}
                                 </li>
                             </ul>
                         </div>
