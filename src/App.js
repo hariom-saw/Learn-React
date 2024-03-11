@@ -2,12 +2,12 @@ import React, { createContext, lazy, Suspense, useContext, useEffect, useState }
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, createRoutesFromElements, Router, Route } from "react-router-dom";
 import Error from "./components/Error";
 import RestaurantCardMenu from "./components/RestaurantCardMenu";
 import Footer from "./components/Footer";
 import UserContext from "./utils/UserContext";
-import Profile from "./components/Profile";
+import Profile, { gitHubInfo } from "./components/Profile";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./components/Cart";
@@ -45,6 +45,8 @@ const AppLayout = () => {
     );
 }
 // To config app router.
+
+/*
 const appRouter = createBrowserRouter(
     [{
         path: "/",
@@ -70,13 +72,30 @@ const appRouter = createBrowserRouter(
                 element: <RestaurantCardMenu />
             },
             {
-                path: "/cart", // Dynamic app routes
+                path: "/cart",
                 element: <Cart />
             }
         ],
         errorElement: <Error />
     },
     ]
+);
+*/
+
+// 2nd method of routes in React
+
+const appRouter = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path="/" element={<AppLayout />} >
+            <Route path="" element={<Body />} />
+            <Route path="about" element={<Suspense fallback={<h2>Loading...</h2>} ><About /> </Suspense >} />
+            <Route path="contact" element={<Suspense fallback={<h2>Loading...</h2>} ><Contact /> </Suspense >} />
+            <Route path="profile" loader={gitHubInfo} element={<Suspense fallback={<h2>Loading...</h2>} ><Profile /> </Suspense >} />
+            <Route path="cart" element={<Suspense fallback={<h2>Loading...</h2>} ><Cart /> </Suspense >} />
+            <Route path="restaurant/:resId" element={<Suspense fallback={<h2>Loading...</h2>} ><RestaurantCardMenu /> </Suspense >} /> // Dynamic app routes
+            <Route path="*" element={<Suspense fallback={<h2>Loading...</h2>} ><Error /> </Suspense >} /> // Dynamic app routes
+        </Route>
+    )
 );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

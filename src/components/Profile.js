@@ -1,22 +1,45 @@
 import { useContext } from "react";
 import UserContext from "../utils/UserContext";
+import { useLoaderData } from "react-router-dom";
 
 const Profile = () => {
 
-
+    const gitHubData = useLoaderData();
     const { loggedInUser, setUserName } = useContext(UserContext);
 
     return (
-        <div className="app-body min-h-96 container m-auto py-2 md:px-12 lg:px-7 flex justify-center items-center flex-col">
-            <h4 className="text-bold text-3xl my-6 text-left"> Profile</h4>
-            <div className="relative">
-                <input type="text" className="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" value={loggedInUser} placeholder="Enter name" onChange={(e) => setUserName(e.target.value)} />
-                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-4 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
-                    <svg class="flex-shrink-0 size-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+
+        <section className="text-gray-600 body-font">
+            <div className="container px-5 py-24 mx-auto flex flex-wrap flex-col">
+                <h4 className="text-bold text-3xl my-6 text-left"> Profile</h4>
+
+                <div className="flex content-start">
+                    <div className="max-w-max sm:p-4 px-4 mb-6">
+                        <input type="text" className="peer py-3 px-4 ps-11 block w-full bg-gray-100 border-transparent rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-700 dark:border-transparent dark:text-gray-400 dark:focus:ring-gray-600" value={loggedInUser} placeholder="Enter name" onChange={(e) => setUserName(e.target.value)} />
+                    </div>
+                    <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                        <h2 className="title-font font-medium text-3xl text-gray-900">{gitHubData?.company}</h2>
+                        <p className="leading-relaxed">Company</p>
+                    </div>
+                    <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                        <h2 className="title-font font-medium text-3xl text-gray-900">{gitHubData?.location}</h2>
+                        <p className="leading-relaxed">Location</p>
+                    </div>
+                    <div className="p-4 sm:w-1/2 lg:w-1/4 w-1/2">
+                        <h2 className="title-font font-medium text-3xl text-gray-900">{gitHubData?.public_repos}</h2>
+                        <p className="leading-relaxed">Repos</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
     )
 }
 
 export default Profile
+
+// Pre load
+export const gitHubInfo = async () => {
+    const response = await fetch("https://api.github.com/users/hariom-saw")
+    return response.json();
+}
