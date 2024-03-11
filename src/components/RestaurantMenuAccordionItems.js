@@ -1,6 +1,15 @@
+import { useDispatch } from "react-redux";
 import { ACCORDION_MEDIA_URL } from "../utils/constant";
+import { addItem } from "../utils/cartSlice";
 
 const RestaurantMenuAccordionItems = ({ itemCards }) => {
+
+    const dispatch = useDispatch();
+
+    const handleAddItem = (item) => {
+        // Dispatch an action
+        dispatch(addItem(item));
+    };
 
     return (
         itemCards.map((item) => (<div key={item.card.info.id} className="p-5 border border-t-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
@@ -12,7 +21,7 @@ const RestaurantMenuAccordionItems = ({ itemCards }) => {
                 </div>
                 <div className='w-2/12 flex items-center justify-around'>
                     <img src={ACCORDION_MEDIA_URL + item.card.info.imageId} />
-                    <button className='rounded bg-red-300 px-3 py-2 text-sm text-black'>Add</button>
+                    <button className='rounded bg-red-300 px-3 py-2 text-sm text-black' onClick={() => handleAddItem(item)}>Add</button>
                 </div>
             </div>
         </div>

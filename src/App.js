@@ -8,6 +8,9 @@ import RestaurantCardMenu from "./components/RestaurantCardMenu";
 import Footer from "./components/Footer";
 import UserContext from "./utils/UserContext";
 import Profile from "./components/Profile";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 
 
 // Chunking
@@ -30,15 +33,15 @@ const AppLayout = () => {
     }, []);
 
     return (
-        <UserContext.Provider value={{loggedInUser: userName, setUserName}} >
-            <div className="app">
-                <Header />
-                <Outlet />
-                <Footer />
-            </div>
-        </UserContext.Provider>
-
-
+        <Provider store={appStore}>
+            <UserContext.Provider value={{ loggedInUser: userName, setUserName }} >
+                <div className="app">
+                    <Header />
+                    <Outlet />
+                    <Footer />
+                </div>
+            </UserContext.Provider>
+        </Provider>
     );
 }
 // To config app router.
@@ -65,6 +68,10 @@ const appRouter = createBrowserRouter(
             {
                 path: "/restaurant/:resId", // Dynamic app routes
                 element: <RestaurantCardMenu />
+            },
+            {
+                path: "/cart", // Dynamic app routes
+                element: <Cart />
             }
         ],
         errorElement: <Error />
